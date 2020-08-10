@@ -5,7 +5,8 @@ import theme from "styled-theming";
 import {Provider as ReduxProvider} from "react-redux";
 import store from './store/store';
 import DarkThemeProvider from "./components/darkThemeProvider/darkThemeProvider";
-import DarkThemeToggle from "./components/darkThemeToggle/darkThemeToggle";
+import Nav from './components/nav/nav'
+import LanguageSwitcher from "./components/LanguageSwitcher/LanguageSwitcher";
 
 export const backgroundColor = theme("theme", {
     light: "#fff",
@@ -29,16 +30,17 @@ const Container = styled.div`
   color: ${textColor};
 `;
 
-function App() {
+const App = () => {
     return (
         <ReduxProvider store={store}>
-            <DarkThemeProvider>
-                <Container>
-                    <DarkThemeToggle/>
-                </Container>
-            </DarkThemeProvider>
+                <DarkThemeProvider>
+                    <Container>
+                        <Nav/>
+                        <LanguageSwitcher />
+                    </Container>
+                </DarkThemeProvider>
         </ReduxProvider>
-    );
-}
+    )
+};
 
 export default App;

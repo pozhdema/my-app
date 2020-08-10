@@ -2,11 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TOGGLE_DARKTHEME } from "../../actions/actions";
 import './darkThemeToggle.css'
+import {withNamespaces} from "react-i18next";
 
-const DarkThemeToggle = () => {
+const DarkThemeToggle = React.memo(props => {
     const darkThemeEnabled = useSelector((state) => state.preferences.darkThemeEnabled);
     const dispatch = useDispatch();
-
+    const { t } = props;
     return (
         <p className='change-theme'>
             <input
@@ -14,9 +15,9 @@ const DarkThemeToggle = () => {
                 checked={darkThemeEnabled}
                 onChange={() => dispatch({ type: TOGGLE_DARKTHEME })}
             ></input>
-            <span>Use Dark Theme</span>
+            <span>{t('theme')}</span>
         </p>
     );
-};
+});
 
-export default DarkThemeToggle;
+export default withNamespaces('common')(DarkThemeToggle);

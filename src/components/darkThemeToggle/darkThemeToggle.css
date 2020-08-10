@@ -1,9 +1,8 @@
 .change-theme {
     display: flex;
-    align-items: center;
-    margin: 2%;
+    width: 10%;
 }
 
 .change-theme span {
-    margin-left: 5px;
+    margin: -5px 0 0 5px;
 }
