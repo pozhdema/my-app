@@ -1,12 +1,12 @@
 import React from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
 import styled from "styled-components";
 import './style.css'
 import theme from "styled-theming";
 import {Provider as ReduxProvider} from "react-redux";
 import store from './store/store';
 import DarkThemeProvider from "./components/darkThemeProvider/darkThemeProvider";
-import Nav from './components/nav/nav'
-import LanguageSwitcher from "./components/LanguageSwitcher/LanguageSwitcher";
+import Layout from "./components/layout/layout";
 
 export const backgroundColor = theme("theme", {
     light: "#fff",
@@ -35,8 +35,9 @@ const App = () => {
         <ReduxProvider store={store}>
                 <DarkThemeProvider>
                     <Container>
-                        <Nav/>
-                        <LanguageSwitcher />
+                        <Router>
+                        <Layout/>
+                        </Router>
                     </Container>
                 </DarkThemeProvider>
         </ReduxProvider>

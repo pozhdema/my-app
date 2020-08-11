@@ -1,8 +1,14 @@
 .change-theme {
     display: flex;
+    justify-content: center;
     width: 10%;
+    cursor: pointer;
 }
 
 .change-theme span {
     margin: -5px 0 0 5px;
+}
+
+.change-theme input {
+    cursor: pointer;
 }

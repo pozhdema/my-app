@@ -8,16 +8,17 @@
 .nav {
     display: flex;
     justify-content: space-evenly;
-    width: 90%;
+    width: 88%;
     list-style: none;
 }
 
 .link {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .link:hover {
     transform: scale(1.5);
-    color: #909497;
+    color: #b7a075;
 }
 
