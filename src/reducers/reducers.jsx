@@ -1,5 +1,6 @@
 import * as actions from "../actions/actions";
 import { combineReducers } from "redux";
+import {reducer as formReducer} from 'redux-form'
 
 const preferences = (state = { darkThemeEnabled: false }, action) => {
     switch (action.type) {
@@ -11,4 +12,9 @@ const preferences = (state = { darkThemeEnabled: false }, action) => {
     }
 };
 
-export default combineReducers({ preferences });
+const reducers = {
+    form:formReducer,
+    preferences
+};
+
+export default combineReducers(reducers);

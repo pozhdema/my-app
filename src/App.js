@@ -25,7 +25,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   font-family: Caveat;
-  font-size: 18px;
+  font-size: 20px;
   background-color: ${backgroundColor};
   color: ${textColor};
 `;
@@ -33,13 +33,13 @@ const Container = styled.div`
 const App = () => {
     return (
         <ReduxProvider store={store}>
-                <DarkThemeProvider>
-                    <Container>
-                        <Router>
+            <DarkThemeProvider>
+                <Container>
+                    <Router>
                         <Layout/>
-                        </Router>
-                    </Container>
-                </DarkThemeProvider>
+                    </Router>
+                </Container>
+            </DarkThemeProvider>
         </ReduxProvider>
     )
 };

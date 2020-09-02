@@ -1,6 +1,7 @@
 import { createStore } from "redux";
 import rootReducer from "../reducers/reducers";
 
+
 const localStorageKey = "theme";
 const persistedTheme = localStorage.getItem(localStorageKey);
 

@@ -17,6 +17,7 @@ export default function configureI18n({i18nextConfig, redux}) {
         .use(reactI18nextModule)
         .init({
             backend: {
+                projectId: '2596e805-2ce2-4e21-9481-ee62202ababd',
                 backends: [
                     Locize,
                     XHR

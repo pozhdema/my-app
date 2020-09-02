@@ -14,8 +14,9 @@ const DarkThemeToggle = React.memo(props => {
                 type="checkbox"
                 checked={darkThemeEnabled}
                 onChange={() => dispatch({ type: TOGGLE_DARKTHEME })}
+                id='check'
             ></input>
-            <span>{t('theme')}</span>
+            <label htmlFor='check'>{t('theme')}</label>
         </p>
     );
 });

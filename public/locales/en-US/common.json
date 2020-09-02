@@ -4,5 +4,17 @@
     "gallery": "Gallery",
     "contact": "Contacts"
   },
-  "theme": "Use Dark Theme"
+  "theme": "Use Dark Theme",
+  "form": {
+    "username": "username",
+    "email": "email",
+    "password": "password",
+    "submit": "Submit",
+    "error" : {
+      "username" : "Must be 15 characters or less",
+      "email" : "Invalid email address",
+      "password" : "Invalid password",
+      "required" : "Required"
+    }
+  }
 }

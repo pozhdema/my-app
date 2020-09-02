@@ -10,7 +10,7 @@ import App from './App';
 
 
 const i18nextConfig = {
-    language: null,
+    language: 'en-US',
     whitelist: ['en', 'uk'],
     ns: ['common'],
     defaultNS: 'common'
