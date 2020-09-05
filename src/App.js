@@ -7,6 +7,8 @@ import {Provider as ReduxProvider} from "react-redux";
 import store from './store/store';
 import DarkThemeProvider from "./components/darkThemeProvider/darkThemeProvider";
 import Layout from "./components/layout/layout";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const backgroundColor = theme("theme", {
     light: "#fff",
@@ -39,6 +41,7 @@ const App = () => {
                         <Layout/>
                     </Router>
                 </Container>
+                <ToastContainer/>
             </DarkThemeProvider>
         </ReduxProvider>
     )

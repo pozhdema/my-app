@@ -3,17 +3,16 @@ import '../home/home.css';
 import {withNamespaces} from "react-i18next";
 import './gallery.css'
 import FontAwesome from 'react-fontawesome'
+import {toast} from "react-toastify";
+
 
 const GalleryPhoto = React.memo(props => {
     const {t} = props;
     const [images, setImages] = useState([]);
-    useEffect(() => {
-        document.querySelector("#root").addEventListener("click", (event) => {
-            if (event.target.classList.contains("modal")) {
-                hideModal()
-            }
-        }, false);
+    const [show, setShow] = useState(false);
+    const [currentImgIdx, setCurrentImgIdx] = useState(false);
 
+    useEffect(() => {
         fetch("/photos.json")
             .then(response => response.json())
             .then(data => {
@@ -22,22 +21,31 @@ const GalleryPhoto = React.memo(props => {
     }, []);
 
 
-    const [show, setShow] = useState(false);
-    const [curentPhoto, setCurentPhoto] = useState([]);
-
-    const showModal = (event, data) => {
+    const showModal = (event, images, currentImgIdx) => {
         setShow(true);
-        setCurentPhoto(data);
+        setCurrentImgIdx(currentImgIdx);
     };
 
     const hideModal = () => {
         setShow(false);
     };
 
-    const Modal = ({handleClose, show, children, curentPhoto}) => {
+    const Modal = ({handleClose, show, currentImgIdx, images}) => {
         const showHideClassName = show ? "modal display-block" : "modal display-none";
+        let  currentPhoto = {
+            "src": "",
+            "id": "",
+            "alt": "",
+            "caption": ""
+        };
+
+        if (currentImgIdx !== false) {
+            currentPhoto = images[currentImgIdx];
+        }
+
+
         return (
-            <div className={showHideClassName}>
+            <div className={showHideClassName} onClick={(event) => {if(event.target.classList.contains("modal")){hideModal()}}}>
                 <button onClick={handleClose} className='modal-btn'>
                     <FontAwesome
                         className="fas fa-times"
@@ -47,31 +55,60 @@ const GalleryPhoto = React.memo(props => {
                     />
                 </button>
                 <section className='modal-main'>
-                    {children}
+                    <button onClick={goToPrevious}>prev</button>
+                    <img
+                        id={currentPhoto.id}
+                        src={`${currentPhoto.src}`}
+                        alt={currentPhoto.alt}
+                        className={currentPhoto.width === 200 ? " vertical" : " horizon"}
+                        onContextMenu={imgStillRestrict}
+                    />
+                    <span>{currentPhoto.caption}</span>
+                    <button onClick={gotoNext}>next</button>
                 </section>
             </div>
         );
     };
 
-    const curentPhotoClassName = curentPhoto.width === 200 ? " vertical" : " horizon";
+    const goToPrevious =() => {
+        if (currentImgIdx <= 0) {
+            setCurrentImgIdx(images.length - 1)
+        } else {
+            let newIdx = currentImgIdx - 1;
+            setCurrentImgIdx(newIdx);
+        }
+    };
+
+    const gotoNext = () => {
+        if (currentImgIdx < images.length - 1 ) {
+            let newIdx = currentImgIdx + 1;
+            setCurrentImgIdx(newIdx);
+        } else {
+            setCurrentImgIdx(0);
+        }
+    };
+
+    const imgStillRestrict = (event) =>
+    {
+        event.preventDefault();
+        event.stopPropagation();
+        toast(t('copyright'), {
+            autoClose: 10000,
+            closeButton: true,
+            type: toast.TYPE.WARNING,
+        });
+        return false;
+    };
+
 
     return (
         <div className='pages'>
             <h1>{t('nav.gallery')}</h1>
-            <Modal show={show} handleClose={hideModal} curentPhoto={curentPhoto}>
-                <img
-                    id={curentPhoto.id}
-                    src={`${curentPhoto.src}`}
-                    alt={curentPhoto.alt}
-                    className={curentPhotoClassName}
-                />
-                <span>{curentPhoto.caption}</span>
-            </Modal>
-
+            <Modal show={show} handleClose={hideModal} images={images} currentImgIdx={currentImgIdx}/>
             <div className='wrapper-images'>
                 {images.map((image, index) => (
                     <div className='img' key={index} onClick={(event) => {
-                        showModal(event, image)
+                        showModal(event, images, index)
                     }}>
                         <img
                             id={image.id}
@@ -79,6 +116,7 @@ const GalleryPhoto = React.memo(props => {
                             width={image.width}
                             height={image.height}
                             alt={image.alt}
+                            onContextMenu={imgStillRestrict}
                         />
                     </div>
                 ))}
