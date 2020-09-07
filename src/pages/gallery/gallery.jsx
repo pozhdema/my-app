@@ -5,7 +5,6 @@ import './gallery.css'
 import FontAwesome from 'react-fontawesome'
 import {toast} from "react-toastify";
 
-
 const GalleryPhoto = React.memo(props => {
     const {t} = props;
     const [images, setImages] = useState([]);
@@ -32,7 +31,7 @@ const GalleryPhoto = React.memo(props => {
 
     const Modal = ({handleClose, show, currentImgIdx, images}) => {
         const showHideClassName = show ? "modal display-block" : "modal display-none";
-        let  currentPhoto = {
+        let currentPhoto = {
             "src": "",
             "id": "",
             "alt": "",
@@ -45,17 +44,36 @@ const GalleryPhoto = React.memo(props => {
 
 
         return (
-            <div className={showHideClassName} onClick={(event) => {if(event.target.classList.contains("modal")){hideModal()}}}>
-                <button onClick={handleClose} className='modal-btn'>
+            <div className={showHideClassName} onClick={(event) => {
+                if (event.target.classList.contains("modal")) {
+                    hideModal()
+                }
+            }}>
+                <button onClick={handleClose} className='modal-btn-close'>
                     <FontAwesome
                         className="fas fa-times"
                         name="close"
-                        size="2x"
-                        style={{color: '#be94a0', background: '#000000', cursor: 'pointer'}}
+                        size="3x"
+                        style={{color: '#be94a0'}}
+                    />
+                </button>
+                <button onClick={goToPrevious} className='btn-go-to left'>
+                    <FontAwesome
+                        className="fas fa-chevron-left"
+                        name="chevron-left"
+                        size="3x"
+                        style={{color: '#be94a0'}}
+                    />
+                </button>
+                <button onClick={gotoNext} className='btn-go-to right'>
+                    <FontAwesome
+                        className="fas fa-chevron-right"
+                        name="chevron-right"
+                        size="3x"
+                        style={{color: '#be94a0'}}
                     />
                 </button>
                 <section className='modal-main'>
-                    <button onClick={goToPrevious}>prev</button>
                     <img
                         id={currentPhoto.id}
                         src={`${currentPhoto.src}`}
@@ -63,14 +81,13 @@ const GalleryPhoto = React.memo(props => {
                         className={currentPhoto.width === 200 ? " vertical" : " horizon"}
                         onContextMenu={imgStillRestrict}
                     />
-                    <span>{currentPhoto.caption}</span>
-                    <button onClick={gotoNext}>next</button>
+                    <span>{currentPhoto.caption = t('caption')}</span>
                 </section>
             </div>
         );
     };
 
-    const goToPrevious =() => {
+    const goToPrevious = () => {
         if (currentImgIdx <= 0) {
             setCurrentImgIdx(images.length - 1)
         } else {
@@ -80,7 +97,7 @@ const GalleryPhoto = React.memo(props => {
     };
 
     const gotoNext = () => {
-        if (currentImgIdx < images.length - 1 ) {
+        if (currentImgIdx < images.length - 1) {
             let newIdx = currentImgIdx + 1;
             setCurrentImgIdx(newIdx);
         } else {
@@ -88,8 +105,7 @@ const GalleryPhoto = React.memo(props => {
         }
     };
 
-    const imgStillRestrict = (event) =>
-    {
+    const imgStillRestrict = (event) => {
         event.preventDefault();
         event.stopPropagation();
         toast(t('copyright'), {

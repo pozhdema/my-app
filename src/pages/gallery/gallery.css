@@ -33,9 +33,33 @@
     transform: translate(-50%, -50%);
 }
 
-.modal-btn {
+.modal-btn-close, .btn-go-to {
     position: fixed;
+    border-color: transparent;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.modal-btn-close {
     right: 0;
+    top: 0;
+}
+
+.btn-go-to {
+    top: 50%;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.btn-go-to:hover, .modal-btn-close:hover, .modal-btn-expand:hover {
+    transform: scale(1.5);
 }
 
 .display-block {
